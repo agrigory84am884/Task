@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Core\ApplicationException;
 use App\Entities\Message;
 use App\Repositories\MessageRepository;
 
-class MessageService
+readonly class MessageService
 {
     public function __construct(private MessageRepository $messageRepository)
     {
@@ -16,8 +17,9 @@ class MessageService
     /**
      * @param int $userId
      * @param int $lastOrderId
-     * @param $limit
+     * @param int $limit
      * @return array<Message>
+     * @throws ApplicationException
      */
     public function getUserMesagesListView(int $userId, int $lastOrderId, int $limit = 1000): array
     {
