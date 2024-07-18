@@ -11,10 +11,10 @@ class DB
 {
 
     /** @var DB */
-    private static $instance;
+    private static DB $instance;
 
     /** @var PDO  */
-    protected $connection;
+    protected PDO $connection;
 
 
     private function __construct()
