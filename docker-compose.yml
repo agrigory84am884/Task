@@ -1,0 +1,53 @@
+version: '3.9'
+services:
+  app:
+    container_name: messaging-app
+    build:
+      dockerfile: .infrastructure/Dockerfile
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    ports:
+      - '81:80'
+    volumes:
+      - '.:/var/www/html'
+    networks:
+      - task
+    depends_on:
+      - mariadb
+      - redis
+
+  mariadb:
+    container_name: messaging-mariadb
+    image: 'mariadb:10.5'
+    ports:
+      - '3305:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+    volumes:
+      - 'mysql-volume:/var/lib/mysql'
+    networks:
+      - task
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+      retries: 3
+      timeout: 5s
+
+  redis:
+    container_name: messaging-redis
+    image: 'redis:7'
+    ports:
+      - '6378:6379'
+    networks:
+      - task
+
+networks:
+  task:
+    driver: bridge
+
+volumes:
+  mysql-volume:
+    driver: local
