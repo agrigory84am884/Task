@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
+use App\Core\ApplicationException;
 use App\Core\BaseRepository;
 use App\Core\QueryBuilder;
 use App\Entities\Message;
@@ -21,6 +22,7 @@ class MessageRepository extends BaseRepository
      * @param $orderedId
      * @param $limit
      * @return array<Message>
+     * @throws ApplicationException
      */
     public function getUserMessages($userId, $orderedId, $limit): array
     {
