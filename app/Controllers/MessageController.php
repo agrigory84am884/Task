@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Core\ApplicationException;
 use App\Core\AsController;
 use App\Core\Cache;
 use App\Core\Request;
@@ -20,6 +21,9 @@ readonly class MessageController implements IController
     ) {
     }
 
+    /**
+     * @throws ApplicationException
+     */
     #[Route('/user-messages', methods: ['GET'])]
     public function getMessageAction(Request $request): Response
     {
