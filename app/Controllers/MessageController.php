@@ -36,7 +36,7 @@ readonly class MessageController implements IController
         $response = new Response($cachedMessages);
 
         if (!$cachedMessages) {
-            $messages = $this->messageService->getUserMesagesListView($userId, $lastOrderedId, $limit);
+            $messages = $this->messageService->getUserMessagesListView($userId, $lastOrderedId, $limit);
             $this->cache->set($userId . $lastOrderedId . $limit, json_encode($messages));
             $response->json($messages);
         }

@@ -21,7 +21,7 @@ readonly class MessageService
      * @return array<Message>
      * @throws ApplicationException
      */
-    public function getUserMesagesListView(int $userId, int $lastOrderId, int $limit = 1000): array
+    public function getUserMessagesListView(int $userId, int $lastOrderId, int $limit = 1000): array
     {
         return $this->messageRepository->getUserMessages($userId, $lastOrderId, $limit);
     }
