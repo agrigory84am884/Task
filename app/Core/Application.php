@@ -54,7 +54,6 @@ class Application
             throw new \BadMethodCallException('Method does not exist', 500);
         }
 
-        // Fetch the controller instance from the DI container
         $controller = $this->container->get($class);
 
         if (!$controller instanceof IController) {
@@ -64,7 +63,7 @@ class Application
         try {
             $response = $controller->$action(new Request());
         } catch (Throwable $exception) {
-            // Ensure the response code is an integer
+
             $code = is_int($exception->getCode()) ? $exception->getCode() : 500;
             http_response_code($code);
             echo $exception->getMessage();
