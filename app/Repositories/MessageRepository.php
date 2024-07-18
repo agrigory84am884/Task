@@ -29,7 +29,7 @@ class MessageRepository extends BaseRepository
         $builder = $this->queryBuilder->select(['message_id', 'message_text', 'ordered_id'])
             ->from('Messages')
             ->where('user_id', '=', $userId)
-            ->where('ordered_id','>', $orderedId, 'AND')
+            ->where('ordered_id','>', $orderedId, 'AND') //to make pagination faster I added an increment id and using that instead of offset
             ->limit($limit);
 
         $queryResult = $this->setBuilder($builder)->all();
